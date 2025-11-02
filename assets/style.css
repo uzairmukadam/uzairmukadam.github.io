@@ -1,0 +1,43 @@
+/* Simple style for mobile nav visibility */
+.nav-links {
+    transition: max-height 0.3s ease-out;
+}
+/* Style for the generated Markdown content */
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3 {
+    font-size: 1.5em;
+    font-weight: 600;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+}
+.markdown-content p {
+    margin-bottom: 1em;
+    line-height: 1.7;
+}
+.markdown-content ul {
+    list-style-type: disc;
+    margin-left: 1.5em;
+    margin-bottom: 1em;
+}
+.markdown-content code {
+    background-color: #1F2937; /* bg-gray-800 */
+    color: #E5E7EB; /* text-gray-200 */
+    padding: 0.2em 0.4em;
+    border-radius: 0.25rem;
+    font-family: monospace;
+}
+.markdown-content pre {
+    background-color: #1F2937;
+    padding: 1em;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin-bottom: 1em;
+}
+.markdown-content pre code {
+    padding: 0;
+}
+.markdown-content a {
+    color: #22D3EE; /* text-cyan-400 */
+    text-decoration: underline;
+}

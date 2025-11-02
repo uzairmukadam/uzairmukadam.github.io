@@ -1,0 +1,16 @@
+[
+    {
+        "title": "Trend Sage",
+        "description": "Automated forecasting engine for crypto price prediction using ARIMA models and rolling technical indicators.",
+        "imageUrl": "https://placehold.co/600x400/1E293B/94A3B8?text=Trend+Sage",
+        "githubUrl": "https://github.com/[YOUR-GITHUB-USERNAME]/Trend-Sage",
+        "liveUrl": null
+    },
+    {
+        "title": "Airport Network Visualizer",
+        "description": "Interactive graph of global airport routes using Neo4j and GeoJSON, featuring shortest-path detection.",
+        "imageUrl": "https://placehold.co/600x400/1E293B/94A3B8?text=Airport+Network",
+        "githubUrl": "https://github.com/[YOUR-GITHUB-USERNAME]/Airport-Network-Visualizer",
+        "liveUrl": "[LINK-TO-YOUR-LIVE-DEMO]"
+    }
+]
