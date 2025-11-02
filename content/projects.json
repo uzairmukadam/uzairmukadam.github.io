@@ -1,16 +1,58 @@
 [
     {
-        "title": "Trend Sage",
-        "description": "Automated forecasting engine for crypto price prediction using ARIMA models and rolling technical indicators.",
-        "imageUrl": "https://placehold.co/600x400/1E293B/94A3B8?text=Trend+Sage",
-        "githubUrl": "https://github.com/[YOUR-GITHUB-USERNAME]/Trend-Sage",
+        "title": "SheetQL",
+        "description": "SheetQL is a powerful command-line tool that transforms your local data files (Excel, CSV, and Parquet) into a relational database, allowing you to run complex SQL queries without cumbersome manual steps. It's designed for data analysts, software engineers, and business professionals who need to quickly analyze spreadsheet data.",
+        "imageUrl": null,
+        "githubUrl": "https://github.com/uzairmukadam/SheetQL",
         "liveUrl": null
     },
     {
         "title": "Airport Network Visualizer",
         "description": "Interactive graph of global airport routes using Neo4j and GeoJSON, featuring shortest-path detection.",
-        "imageUrl": "https://placehold.co/600x400/1E293B/94A3B8?text=Airport+Network",
-        "githubUrl": "https://github.com/[YOUR-GITHUB-USERNAME]/Airport-Network-Visualizer",
-        "liveUrl": "[LINK-TO-YOUR-LIVE-DEMO]"
+        "imageUrl": null,
+        "githubUrl": "https://github.com/uzairmukadam/Airport-Network-Visualizer",
+        "liveUrl": null
+    },
+    {
+        "title": "UFO Sightings",
+        "description": "Interactive map of global ufo sightings using MongoDB and React.",
+        "imageUrl": null,
+        "githubUrl": "https://github.com/uzairmukadam/UFO-Sightings",
+        "liveUrl": null
+    },
+    {
+        "title": "Trend Sage",
+        "description": "A comprehensive cryptocurrency data analysis and forecasting pipeline that fetches, preprocesses, engineers features, and builds predictive models for cryptocurrencies. It consists of multiple modules to streamline the end-to-end process from data collection to actionable insights.",
+        "imageUrl": null,
+        "githubUrl": "https://github.com/uzairmukadam/Trend-Sage",
+        "liveUrl": null
+    },
+    {
+        "title": "BidgetWise",
+        "description": "An Expense Tracking and Budgeting Application aimed at enhancing users' financial management practices. Through this platform, users can efficiently manage their expenses, create personalized budgets, and optimize their spending habits. The application will offer intuitive data visualization tools for tracking spending patterns, with real-time alerts that will notify users of budget breaches, ensuring fiscal discipline.",
+        "imageUrl": null,
+        "githubUrl": "https://github.com/uzairmukadam/BudgetWise",
+        "liveUrl": null
+    },
+    {
+        "title": "A-Maze",
+        "description": "A classic 3D maze game built with Pygame, featuring a first-person perspective, time tracking, and customizable maps. Navigate through challenging mazes and find the exit!",
+        "imageUrl": null,
+        "githubUrl": "https://github.com/uzairmukadam/A-Maze",
+        "liveUrl": null
+    },
+    {
+        "title": "Fraud Detection",
+        "description": "An ML pipeline to identify fraudulent job postings from the dataset.",
+        "imageUrl": null,
+        "githubUrl": "https://github.com/uzairmukadam/Fraud_Detection",
+        "liveUrl": null
+    },
+    {
+        "title": "Automatic Smart Irrigation System",
+        "description": "IOT project to automatically water plants based on the time. The system makes use of multiple sensors with arduino as its brains. The timer is managed by an RTC with live data about water level, soil moisture and current time displayed through an LCD. It uses concept of proto-threading to efficiently use the arduino.",
+        "imageUrl": null,
+        "githubUrl": "https://github.com/uzairmukadam/Automatic-Smart-Irrigation-System",
+        "liveUrl": null
     }
 ]
