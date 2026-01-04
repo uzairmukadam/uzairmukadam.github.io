@@ -1,31 +1,23 @@
 /**
  * main.js - Uzair Mukadam's Portfolio Logic
- * Handles dynamic content fetching, routing, and fallbacks.
  */
 
 // Configuration & Professional Fallbacks
-const DEFAULT_IMAGE = "https://images.unsplash.com/photo-1634017831461-45576d5704b7?q=80&w=1000&auto=format&fit=crop";
+// Using a reliable high-quality tech-themed fallback image
+const DEFAULT_IMAGE = "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000&auto=format&fit=crop";
 
-// Updated Mock Data: Using generic professional placeholders
 const MOCK_PROJECTS = [
     {
         title: "Project Title Placeholder",
         description: "A detailed description of the technical challenges solved, the tech stack used, and the overall impact of the system.",
-        imageUrl: "",
+        imageUrl: null, // Explicitly null to test fallback
         githubUrl: "#",
         liveUrl: null
     },
     {
         title: "System Implementation",
         description: "An overview of a software engineering solution focusing on scalability, performance optimization, and clean architecture.",
-        imageUrl: "",
-        githubUrl: "#",
-        liveUrl: null
-    },
-    {
-        title: "Technical Showcase",
-        description: "Demonstrating expertise in software development through a robust implementation of industry-standard practices.",
-        imageUrl: "",
+        imageUrl: null,
         githubUrl: "#",
         liveUrl: null
     }
@@ -37,10 +29,15 @@ const APP_DATA = {
 };
 
 /**
- * Utility: Helper to handle missing or broken images
+ * Utility: Robust helper to handle missing, null, or broken images
  */
 function getSafeImage(url) {
-    if (!url || typeof url !== 'string' || url.trim() === "" || url.includes("[") || url.includes("placehold.co")) {
+    // If url is null, undefined, empty string, or literal "null" string
+    if (!url || typeof url !== 'string' || url.trim() === "" || url.toLowerCase() === "null") {
+        return DEFAULT_IMAGE;
+    }
+    // Prevent common placeholder strings from failing
+    if (url.includes("[") || url.includes("imageUrl")) {
         return DEFAULT_IMAGE;
     }
     return url;
@@ -64,16 +61,12 @@ async function loadProjects() {
 
     try {
         const response = await fetch(APP_DATA.projects);
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         
         const projects = await response.json();
         renderProjects(projects);
-        
     } catch (error) {
-        console.warn("Could not load projects.json. Displaying professional placeholders.");
+        console.warn("Could not load projects.json. Displaying placeholders.");
         renderProjects(MOCK_PROJECTS);
     }
 }
@@ -86,13 +79,13 @@ function renderProjects(projects) {
     if (!grid) return;
 
     if (!projects || projects.length === 0) {
-        grid.innerHTML = `<p class="col-span-full text-center text-gray-500 italic py-10">No projects found in projects.json</p>`;
+        grid.innerHTML = `<p class="col-span-full text-center text-gray-500 italic py-10">No projects found.</p>`;
         return;
     }
 
     grid.innerHTML = projects.map(project => `
         <div class="project-card group bg-gray-800 rounded-xl shadow-lg overflow-hidden border border-gray-700/50 hover:border-cyan-500/50 transition-all duration-300">
-            <div class="relative overflow-hidden h-52">
+            <div class="relative overflow-hidden h-52 bg-gray-900">
                 <img 
                     src="${getSafeImage(project.imageUrl)}" 
                     alt="${project.title}" 
@@ -130,13 +123,12 @@ async function loadBlogs() {
     try {
         const response = await fetch(APP_DATA.blogs);
         if (!response.ok) throw new Error("Blogs manifest not found");
-        
         const blogs = await response.json();
 
         grid.innerHTML = blogs.map(blog => `
             <article onclick="loadBlogPost('${blog.file}')" class="blog-card cursor-pointer group bg-gray-800/50 hover:bg-gray-800 p-6 rounded-xl border border-gray-700/50 transition-all duration-300">
-                <div class="mb-4 overflow-hidden rounded-lg h-40">
-                    <img src="${getSafeImage(blog.imageUrl)}" alt="${blog.title}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+                <div class="mb-4 overflow-hidden rounded-lg h-40 bg-gray-900">
+                    <img src="${getSafeImage(blog.imageUrl)}" alt="${blog.title}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" onerror="this.src='${DEFAULT_IMAGE}'">
                 </div>
                 <span class="text-cyan-400 text-xs font-bold tracking-widest uppercase">${blog.date}</span>
                 <h3 class="text-xl font-bold text-white mt-2 mb-3 group-hover:text-cyan-400 transition-colors">${blog.title}</h3>
@@ -153,7 +145,7 @@ async function loadBlogs() {
 }
 
 /**
- * Handle Single Blog Post View
+ * Single Blog View
  */
 async function loadBlogPost(filename) {
     const detailView = document.getElementById('blog-post-detail');
@@ -162,12 +154,11 @@ async function loadBlogPost(filename) {
 
     try {
         const response = await fetch(`content/blogs/${filename}`);
-        if (!response.ok) throw new Error("Post markdown file not found");
+        if (!response.ok) throw new Error("Post not found");
         const markdown = await response.text();
         
         mainContent.classList.add('hidden');
         detailView.classList.remove('hidden');
-        
         contentArea.innerHTML = marked.parse(markdown);
         window.scrollTo(0, 0);
     } catch (error) {
@@ -175,9 +166,6 @@ async function loadBlogPost(filename) {
     }
 }
 
-/**
- * Navigation Utility
- */
 function showMainPage() {
     document.getElementById('blog-post-detail')?.classList.add('hidden');
     document.getElementById('main-content')?.classList.remove('hidden');
@@ -205,7 +193,6 @@ function toggleNav() {
     }
 }
 
-// Initialization
 window.addEventListener('DOMContentLoaded', () => {
     if (toggleButton) toggleButton.addEventListener('click', toggleNav);
     document.querySelectorAll('.mobile-link').forEach(link => {
