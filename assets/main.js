@@ -1,186 +1,210 @@
-// --- APPLICATION LOGIC ---
+/**
+ * main.js - Uzair Mukadam's Portfolio Logic
+ * Handles dynamic content fetching, routing, and fallbacks.
+ */
 
-// Wait for the DOM to be fully loaded before running scripts
-document.addEventListener('DOMContentLoaded', () => {
-    // Asynchronously load data and set up navigation
-    renderProjects();
-    renderBlogList();
-    setupNavigation();
-});
+// Configuration & Professional Fallbacks
+const DEFAULT_IMAGE = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop";
 
-// 1. Fetches project data and renders all project cards
-async function renderProjects() {
+// Mock Data: This ensures the site is never empty, even if projects.json fails to load locally.
+const MOCK_PROJECTS = [
+    {
+        title: "Project Data Loading...",
+        description: "Your projects are being fetched from the local JSON. If you see this for a long time, ensure you are running a local server (like Live Server) or have deployed to GitHub Pages.",
+        imageUrl: "",
+        githubUrl: "#",
+        liveUrl: null
+    }
+];
+
+const APP_DATA = {
+    projects: 'content/projects.json',
+    blogs: 'content/blogs.json'
+};
+
+/**
+ * Utility: Helper to handle missing or broken images
+ */
+function getSafeImage(url) {
+    if (!url || typeof url !== 'string' || url.trim() === "" || url.includes("[") || url.includes("placehold.co")) {
+        return DEFAULT_IMAGE;
+    }
+    return url;
+}
+
+/**
+ * Initialize Lucide Icons
+ */
+function initIcons() {
+    if (window.lucide) {
+        window.lucide.createIcons();
+    }
+}
+
+/**
+ * Fetch and Render Projects with Fallback logic
+ */
+async function loadProjects() {
     const grid = document.getElementById('project-grid');
-    if (!grid) return; // Exit if the project grid isn't on the page
+    if (!grid) return;
 
     try {
-        // Fetch the project data from the new JSON file
-        const response = await fetch('content/projects.json');
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const projectsData = await response.json();
+        // Attempt to fetch the actual JSON data
+        const response = await fetch(APP_DATA.projects);
         
-        let gridHtml = '';
-        for (const project of projectsData) {
-            gridHtml += `
-            <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
-                <img src="${project.imageUrl}" 
-                     alt="${project.title} Screenshot" 
-                     class="w-full h-48 object-cover">
-                <div class="p-6">
-                    <h3 class="text-2xl font-semibold text-white mb-3">${project.title}</h3>
-                    <p class="text-gray-300 mb-4">
-                        ${project.description}
-                    </p>
-                    <div class="flex gap-4">
-                        <a href="${project.githubUrl}" target="_blank" class="flex-1 text-center bg-gray-700 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded-lg transition-colors">
-                            GitHub
-                        </a>
-                        ${
-                            // Conditionally add the 'Live Demo' button only if 'liveUrl' exists
-                            project.liveUrl ? `
-                        <a href="${project.liveUrl}" target="_blank" class="flex-1 text-center bg-cyan-500 hover:bg-cyan-600 text-white font-medium py-2 px-4 rounded-lg transition-colors">
-                            Live Demo
-                        </a>` : ''
-                        }
-                    </div>
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const projects = await response.json();
+        renderProjects(projects);
+        
+    } catch (error) {
+        // Log the error for debugging (visible in F12 console)
+        console.warn("Could not load projects.json. This is usually due to CORS when running locally via file:// or a missing file path.");
+        
+        // Render mock data so the UI doesn't look broken
+        renderProjects(MOCK_PROJECTS);
+    }
+}
+
+/**
+ * Core rendering function for projects
+ */
+function renderProjects(projects) {
+    const grid = document.getElementById('project-grid');
+    if (!grid) return;
+
+    if (!projects || projects.length === 0) {
+        grid.innerHTML = `<p class="col-span-full text-center text-gray-500 italic py-10">No projects found in projects.json</p>`;
+        return;
+    }
+
+    grid.innerHTML = projects.map(project => `
+        <div class="project-card group bg-gray-800 rounded-xl shadow-lg overflow-hidden border border-gray-700/50 hover:border-cyan-500/50 transition-all duration-300">
+            <div class="relative overflow-hidden h-52">
+                <img 
+                    src="${getSafeImage(project.imageUrl)}" 
+                    alt="${project.title}" 
+                    onerror="this.src='${DEFAULT_IMAGE}'"
+                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                >
+                <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-60"></div>
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors">${project.title}</h3>
+                <p class="text-gray-400 text-sm mb-4 line-clamp-3">${project.description || 'No description available.'}</p>
+                <div class="flex gap-3">
+                    <a href="${project.githubUrl || '#'}" target="_blank" class="flex-1 inline-flex items-center justify-center gap-2 bg-gray-700 hover:bg-gray-600 text-white text-sm font-semibold py-2 px-3 rounded-lg transition-colors">
+                        <i data-lucide="github" class="w-4 h-4"></i> Source
+                    </a>
+                    ${project.liveUrl ? `
+                    <a href="${project.liveUrl}" target="_blank" class="flex-1 inline-flex items-center justify-center gap-2 bg-cyan-500 hover:bg-cyan-600 text-white text-sm font-semibold py-2 px-3 rounded-lg transition-colors">
+                        <i data-lucide="external-link" class="w-4 h-4"></i> Demo
+                    </a>` : ''}
                 </div>
             </div>
-            `;
-        }
-        grid.innerHTML = gridHtml; // Populate the grid
-    } catch (error) {
-        console.error("Failed to load projects:", error);
-        grid.innerHTML = "<p class='text-red-400'>Error loading projects. Please check the console.</p>";
-    }
-}
-
-// 2. Fetches blog metadata and renders all blog post cards
-async function renderBlogList() {
-    const grid = document.getElementById('blog-grid');
-    if (!grid) return; // Exit if the blog grid isn't on the page
-
-    try {
-        // Fetch the blog metadata from the new JSON file
-        const response = await fetch('content/blogs.json');
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const blogData = await response.json();
-
-        let gridHtml = '';
-        for (const post of blogData) {
-            // Note: We now pass the file, title, and date to showBlogPost
-            gridHtml += `
-            <a href="#" onclick="event.preventDefault(); showBlogPost('${post.file}', '${post.title}', '${post.date}')" class="block bg-gray-800 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
-                <img src="${post.imageUrl}" 
-                     alt="${post.title} Image" 
-                     class="w-full h-48 object-cover">
-                <div class="p-6">
-                    <p class="text-sm text-gray-400 mb-1">${post.date}</p>
-                    <h3 class="text-2xl font-semibold text-white mb-3">${post.title}</h3>
-                    <p class="text-gray-300 mb-4">
-                        ${post.summary}
-                    </p>
-                    <span class="font-medium text-cyan-400 hover:text-cyan-300">Read More &rarr;</span>
-                </div>
-            </a>
-            `;
-        }
-        grid.innerHTML = gridHtml; // Populate the grid
-    } catch (error) {
-        console.error("Failed to load blog posts:", error);
-        grid.innerHTML = "<p class='text-red-400'>Error loading blog posts. Please check the console.</p>";
-    }
-}
-
-// 3. Shows a single blog post
-async function showBlogPost(fileName, title, date) {
-    if (!fileName || !title || !date) return;
-
-    // Hide main content, show blog post view
-    document.getElementById('main-content').classList.add('hidden');
-    document.getElementById('blog-post-detail').classList.remove('hidden');
-
-    const contentContainer = document.getElementById('blog-post-content');
+        </div>
+    `).join('');
     
+    // Refresh icons for newly injected HTML
+    initIcons();
+}
+
+/**
+ * Fetch and Render Blogs
+ */
+async function loadBlogs() {
+    const grid = document.getElementById('blog-grid');
+    if (!grid) return;
+
     try {
-        // Fetch the individual markdown file
-        const response = await fetch(`content/blogs/${fileName}`);
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const markdownContent = await response.text();
+        const response = await fetch(APP_DATA.blogs);
+        if (!response.ok) throw new Error("Blogs manifest not found");
         
-        // Convert Markdown to HTML using the 'marked' library
-        const htmlContent = marked.parse(markdownContent);
+        const blogs = await response.json();
 
-        // Populate the container with metadata and rendered HTML
-        contentContainer.innerHTML = `
-            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">${title}</h1>
-            <p class="text-lg text-gray-400 mb-8">${date}</p>
-            ${htmlContent}
-        `;
+        grid.innerHTML = blogs.map(blog => `
+            <article onclick="loadBlogPost('${blog.file}')" class="blog-card cursor-pointer group bg-gray-800/50 hover:bg-gray-800 p-6 rounded-xl border border-gray-700/50 transition-all duration-300">
+                <div class="mb-4 overflow-hidden rounded-lg h-40">
+                    <img src="${getSafeImage(blog.imageUrl)}" alt="${blog.title}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+                </div>
+                <span class="text-cyan-400 text-xs font-bold tracking-widest uppercase">${blog.date}</span>
+                <h3 class="text-xl font-bold text-white mt-2 mb-3 group-hover:text-cyan-400 transition-colors">${blog.title}</h3>
+                <p class="text-gray-400 text-sm line-clamp-2">${blog.summary}</p>
+                <div class="mt-4 flex items-center text-cyan-400 text-sm font-semibold">
+                    Read More <i data-lucide="arrow-right" class="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1"></i>
+                </div>
+            </article>
+        `).join('');
+        initIcons();
+    } catch (error) {
+        console.warn("Could not load blogs.json");
+    }
+}
 
-        // Scroll to the top of the page
+/**
+ * Handle Single Blog Post View
+ */
+async function loadBlogPost(filename) {
+    const detailView = document.getElementById('blog-post-detail');
+    const mainContent = document.getElementById('main-content');
+    const contentArea = document.getElementById('blog-post-content');
+
+    try {
+        const response = await fetch(`content/blogs/${filename}`);
+        if (!response.ok) throw new Error("Post markdown file not found");
+        const markdown = await response.text();
+        
+        mainContent.classList.add('hidden');
+        detailView.classList.remove('hidden');
+        
+        // Ensure 'marked' library is loaded in index.html
+        contentArea.innerHTML = marked.parse(markdown);
         window.scrollTo(0, 0);
     } catch (error) {
-        console.error(`Failed to load blog post ${fileName}:`, error);
-        contentContainer.innerHTML = `<p class='text-red-400'>Error loading post. Please check the console.</p>`;
+        console.error("Error loading blog post:", error);
     }
 }
 
-// 4. Shows the main page and hides the blog post view
+/**
+ * Navigation Utility
+ */
 function showMainPage() {
-    document.getElementById('main-content').classList.remove('hidden');
-    document.getElementById('blog-post-detail').classList.add('hidden');
+    document.getElementById('blog-post-detail')?.classList.add('hidden');
+    document.getElementById('main-content')?.classList.remove('hidden');
 }
 
-// 5. Handles navigation for mobile and desktop
-function setupNavigation() {
-    // Mobile nav toggle
-    const toggleButton = document.getElementById('mobile-nav-toggle');
-    const navLinks = document.getElementById('mobile-nav-links');
-    const menuIcon = document.getElementById('menu-icon');
-    const closeIcon = document.getElementById('close-icon');
+// Navigation Events
+const toggleButton = document.getElementById('mobile-nav-toggle');
+const navLinks = document.getElementById('mobile-nav-links');
+const menuIcon = document.getElementById('menu-icon');
+const closeIcon = document.getElementById('close-icon');
 
-    function toggleNav() {
-        const isExpanded = navLinks.classList.contains('max-h-96');
-        if (isExpanded) {
-            navLinks.classList.remove('max-h-96');
-            navLinks.classList.add('max-h-0');
-            menuIcon.classList.remove('hidden');
-            closeIcon.classList.add('hidden');
-        } else {
-            navLinks.classList.remove('max-h-0');
-            navLinks.classList.add('max-h-96');
-            menuIcon.classList.add('hidden');
-            closeIcon.classList.remove('hidden');
-        }
+function toggleNav() {
+    if (!navLinks) return;
+    const isExpanded = navLinks.classList.contains('max-h-96');
+    if (isExpanded) {
+        navLinks.classList.remove('max-h-96');
+        navLinks.classList.add('max-h-0');
+        menuIcon?.classList.remove('hidden');
+        closeIcon?.classList.add('hidden');
+    } else {
+        navLinks.classList.remove('max-h-0');
+        navLinks.classList.add('max-h-96');
+        menuIcon?.classList.add('hidden');
+        closeIcon?.classList.remove('hidden');
     }
-    toggleButton.addEventListener('click', toggleNav);
-    
-    // Close mobile nav when a link is clicked
+}
+
+// Initialization
+window.addEventListener('DOMContentLoaded', () => {
+    if (toggleButton) toggleButton.addEventListener('click', toggleNav);
     document.querySelectorAll('.mobile-link').forEach(link => {
-        link.addEventListener('click', () => {
-            showMainPage();
-            toggleNav();
-            // We need a slight delay for the content to show before scrolling
-            setTimeout(() => {
-                const targetElement = document.querySelector(link.getAttribute('href'));
-                if (targetElement) {
-                    targetElement.scrollIntoView();
-                }
-            }, 100);
-        });
+        link.addEventListener('click', toggleNav);
     });
 
-    // Handle desktop nav clicks
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            showMainPage();
-             // We need a slight delay for the content to show before scrolling
-            setTimeout(() => {
-                const targetElement = document.querySelector(link.getAttribute('href'));
-                if (targetElement) {
-                    targetElement.scrollIntoView();
-                }
-            }, 50);
-        });
-    });
-}
+    loadProjects();
+    loadBlogs();
+    initIcons();
+});
