@@ -1,0 +1,9 @@
+[
+    {
+        "file": "my-new-portfolio.md",
+        "title": "Welcome to My New Dynamic Portfolio!",
+        "date": "November 2, 2025",
+        "summary": "Learn about how this new portfolio was built dynamically using JavaScript and Markdown...",
+        "imageUrl": "https://placehold.co/600x400/1E293B/94A3B8?text=My+New+Blog"
+    }
+]
