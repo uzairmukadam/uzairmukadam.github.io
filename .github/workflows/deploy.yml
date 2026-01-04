@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -23,13 +26,13 @@ jobs:
         run: npm install
 
       - name: Build Tailwind CSS
-        # This command scans your HTML/JS and generates the production CSS
-        run: npx @tailwindcss/cli -i ./src/input.css -o ./assets/style.css
+        run: |
+          mkdir -p assets
+          npx @tailwindcss/cli -i ./src/input.css -o ./assets/style.css
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./
-          # This ensures the built CSS is included in the deployment
           force_orphan: true
