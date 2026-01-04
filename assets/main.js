@@ -4,13 +4,27 @@
  */
 
 // Configuration & Professional Fallbacks
-const DEFAULT_IMAGE = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop";
+const DEFAULT_IMAGE = "https://images.unsplash.com/photo-1634017831461-45576d5704b7?q=80&w=1000&auto=format&fit=crop";
 
-// Mock Data: This ensures the site is never empty, even if projects.json fails to load locally.
+// Updated Mock Data: Using generic professional placeholders
 const MOCK_PROJECTS = [
     {
-        title: "Project Data Loading...",
-        description: "Your projects are being fetched from the local JSON. If you see this for a long time, ensure you are running a local server (like Live Server) or have deployed to GitHub Pages.",
+        title: "Project Title Placeholder",
+        description: "A detailed description of the technical challenges solved, the tech stack used, and the overall impact of the system.",
+        imageUrl: "",
+        githubUrl: "#",
+        liveUrl: null
+    },
+    {
+        title: "System Implementation",
+        description: "An overview of a software engineering solution focusing on scalability, performance optimization, and clean architecture.",
+        imageUrl: "",
+        githubUrl: "#",
+        liveUrl: null
+    },
+    {
+        title: "Technical Showcase",
+        description: "Demonstrating expertise in software development through a robust implementation of industry-standard practices.",
         imageUrl: "",
         githubUrl: "#",
         liveUrl: null
@@ -49,7 +63,6 @@ async function loadProjects() {
     if (!grid) return;
 
     try {
-        // Attempt to fetch the actual JSON data
         const response = await fetch(APP_DATA.projects);
         
         if (!response.ok) {
@@ -60,10 +73,7 @@ async function loadProjects() {
         renderProjects(projects);
         
     } catch (error) {
-        // Log the error for debugging (visible in F12 console)
-        console.warn("Could not load projects.json. This is usually due to CORS when running locally via file:// or a missing file path.");
-        
-        // Render mock data so the UI doesn't look broken
+        console.warn("Could not load projects.json. Displaying professional placeholders.");
         renderProjects(MOCK_PROJECTS);
     }
 }
@@ -107,7 +117,6 @@ function renderProjects(projects) {
         </div>
     `).join('');
     
-    // Refresh icons for newly injected HTML
     initIcons();
 }
 
@@ -159,7 +168,6 @@ async function loadBlogPost(filename) {
         mainContent.classList.add('hidden');
         detailView.classList.remove('hidden');
         
-        // Ensure 'marked' library is loaded in index.html
         contentArea.innerHTML = marked.parse(markdown);
         window.scrollTo(0, 0);
     } catch (error) {
