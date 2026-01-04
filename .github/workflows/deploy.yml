@@ -30,9 +30,15 @@ jobs:
           mkdir -p assets
           npx @tailwindcss/cli -i ./src/input.css -o ./assets/style.css
 
+      - name: Verify Build
+        run: |
+          echo "Checking if style.css exists:"
+          ls -l assets/style.css || echo "File NOT found!"
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./
+          exclude_assets: '' 
           force_orphan: true

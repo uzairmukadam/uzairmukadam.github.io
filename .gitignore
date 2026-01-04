@@ -1,9 +1,6 @@
 # Dependencies
 node_modules/
 
-# Build outputs
-assets/style.css
-
 # Logs
 npm-debug.log*
 yarn-debug.log*
