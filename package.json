@@ -1,0 +1,25 @@
+{
+  "name": "uzairmukadam.github.io",
+  "version": "1.0.0",
+  "description": "This repository contains the code for my personal portfolio website, built with HTML, Tailwind CSS, and vanilla JavaScript.\r It's designed to be a \"static site\" that is dynamically populated from local JSON and Markdown files, making it extremely easy to update with new projects and blog posts.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uzairmukadam/uzairmukadam.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/uzairmukadam/uzairmukadam.github.io/issues"
+  },
+  "homepage": "https://github.com/uzairmukadam/uzairmukadam.github.io#readme",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.18",
+    "tailwindcss": "^4.1.18"
+  }
+}

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uzair Mukadam | MS Software Engineering @ RIT</title>
+    <link rel="stylesheet" href="assets/style.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- External Libraries -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans selection:bg-cyan-500/30">
+
+    <header class="bg-gray-900/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-800">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" onclick="showMainPage()" class="group flex items-center text-2xl font-black tracking-tighter transition-transform hover:scale-105 active:scale-95">
+                <span class="text-white">UZ</span>
+                <span class="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">AIR</span>
+                <span class="text-cyan-500 ml-0.5">.</span>
+            </a>
+
+            <button id="mobile-nav-toggle" class="md:hidden text-white">
+                <i data-lucide="menu" id="menu-icon" class="w-6 h-6"></i>
+                <i data-lucide="x" id="close-icon" class="w-6 h-6 hidden"></i>
+            </button>
+
+            <ul class="hidden md:flex space-x-8 items-center text-sm font-medium">
+                <li><a href="#home" onclick="showMainPage()" class="nav-link text-gray-400 hover:text-white transition-colors">Home</a></li>
+                <li><a href="#about" onclick="showMainPage()" class="nav-link text-gray-400 hover:text-white transition-colors">About</a></li>
+                <li><a href="#journey" onclick="showMainPage()" class="nav-link text-gray-400 hover:text-white transition-colors">Journey</a></li>
+                <li><a href="#projects" onclick="showMainPage()" class="nav-link text-gray-400 hover:text-white transition-colors">Projects</a></li>
+                <li><a href="#blog" onclick="showMainPage()" class="nav-link text-gray-400 hover:text-white transition-colors">Blog</a></li>
+                <li><a href="#contact" onclick="showMainPage()" class="nav-link text-gray-400 hover:text-white transition-colors">Contact</a></li>
+                <li>
+                    <a href="assets/files/resume.pdf" target="_blank" class="bg-cyan-500 hover:bg-cyan-600 text-white py-2 px-5 rounded-full shadow-lg shadow-cyan-500/20 transition-all active:scale-95">
+                        Resume
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div id="mobile-nav-links" class="md:hidden bg-gray-900 border-b border-gray-800 max-h-0 overflow-hidden transition-all duration-300">
+            <ul class="flex flex-col p-6 space-y-4 text-center">
+                <li><a href="#home" class="mobile-link text-lg">Home</a></li>
+                <li><a href="#about" class="mobile-link text-lg">About</a></li>
+                <li><a href="#journey" class="mobile-link text-lg">Journey</a></li>
+                <li><a href="#projects" class="mobile-link text-lg">Projects</a></li>
+                <li><a href="#blog" class="mobile-link text-lg">Blog</a></li>
+                <li><a href="#contact" class="mobile-link text-lg">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div id="main-content">
+        <main class="container mx-auto px-6">
+            <!-- Hero Section -->
+            <section id="home" class="min-h-[80vh] flex flex-col-reverse md:flex-row items-center justify-between py-20 gap-12">
+                <div class="md:w-3/5 text-center md:text-left">
+                    <h2 class="text-cyan-400 font-bold tracking-widest text-sm uppercase mb-4">MS Software Engineering @ RIT • Class of 2026</h2>
+                    <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight">
+                        From Silicon to <br><span class="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Cloud Architecture</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-400 mb-10 max-w-xl leading-relaxed">
+                        I'm Uzair Mukadam, a Software Engineer passionate about building stuffs, ranging from embedded logic to large-scale distributed systems.
+                    </p>
+                    <div class="flex flex-wrap justify-center md:justify-start gap-4">
+                        <a href="#projects" class="bg-white text-gray-900 font-bold py-4 px-8 rounded-xl hover:bg-cyan-400 transition-all hover:-translate-y-1">
+                            Explore Systems
+                        </a>
+                        <a href="#contact" class="border border-gray-700 text-white font-bold py-4 px-8 rounded-xl hover:bg-gray-800 transition-all hover:-translate-y-1">
+                            Get in Touch
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-2/5 flex justify-center">
+                    <div class="relative group">
+                        <div class="absolute -inset-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+                        <img src="https://placehold.co/400x400/1E293B/94A3B8?text=UM" alt="Uzair Mukadam" class="relative rounded-full w-64 h-64 md:w-80 md:h-80 object-cover border-4 border-gray-800 grayscale hover:grayscale-0 transition-all duration-500">
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section id="about" class="py-24 border-t border-gray-800/50">
+                <div class="flex flex-col md:flex-row gap-16 items-start">
+                    <div class="md:w-1/2">
+                        <h2 class="text-3xl md:text-5xl font-bold text-white mb-8">The Builder Mindset</h2>
+                        <div class="space-y-6 text-gray-400 leading-relaxed text-lg">
+                            <p>
+                                Currently pursuing my <span class="text-white font-semibold">Masters in Software Engineering at Rochester Institute of Technology (RIT)</span>, I occupy the intersection of rigorous academic theory and hands-on system building. 
+                            </p>
+                            <p>
+                                My expertise spans the entire stack, from writing low-level firmware for <span class="text-cyan-400">Embedded Systems</span> to orchestrating <span class="text-cyan-400">DevOps pipelines</span> and architecting <span class="text-cyan-400">Backend Infrastructure</span>. I don't just write code; I design systems that are scalable, resilient, and efficient.
+                            </p>
+                            <p>
+                                Whether it's optimizing a containerized microservice or debugging a real-time kernel, I thrive on the challenge of "building stuffs" that solve real-world problems.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 grid grid-cols-2 gap-4">
+                        <div class="p-6 bg-gray-800/40 rounded-2xl border border-gray-700/50 hover:border-cyan-500/30 transition-colors">
+                            <h4 class="text-white font-bold mb-2">Backend</h4>
+                            <p class="text-sm text-gray-500">Distributed Systems, APIs, Python, Go, Java</p>
+                        </div>
+                        <div class="p-6 bg-gray-800/40 rounded-2xl border border-gray-700/50 hover:border-cyan-500/30 transition-colors">
+                            <h4 class="text-white font-bold mb-2">Infrastructure</h4>
+                            <p class="text-sm text-gray-500">Docker, Kubernetes, AWS, Terraform</p>
+                        </div>
+                        <div class="p-6 bg-gray-800/40 rounded-2xl border border-gray-700/50 hover:border-cyan-500/30 transition-colors">
+                            <h4 class="text-white font-bold mb-2">Embedded</h4>
+                            <p class="text-sm text-gray-500">C/C++, RTOS, IoT, Firmware Development</p>
+                        </div>
+                        <div class="p-6 bg-gray-800/40 rounded-2xl border border-gray-700/50 hover:border-cyan-500/30 transition-colors">
+                            <h4 class="text-white font-bold mb-2">Full-stack</h4>
+                            <p class="text-sm text-gray-500">React, TypeScript, Node.js</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Journey Section (Timeline) -->
+            <section id="journey" class="py-24 border-t border-gray-800/50">
+                <h2 class="text-3xl md:text-5xl font-bold text-white mb-16 text-center">My <span class="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Journey</span></h2>
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 relative">
+                    
+                    <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full w-px bg-gray-800"></div>
+
+                    <!-- Education -->
+                    <div class="space-y-12">
+                        <div class="flex items-center gap-3 mb-8">
+                            <i data-lucide="graduation-cap" class="text-cyan-400 w-8 h-8"></i>
+                            <h3 class="text-2xl font-bold text-white">Education</h3>
+                        </div>
+
+                        <div class="relative group">
+                            <div class="hidden md:block absolute -right-[43px] top-1.5 w-4 h-4 rounded-full bg-cyan-500 border-4 border-gray-900 z-10"></div>
+                            <div class="bg-gray-800/40 p-6 rounded-2xl border border-gray-700/50 transition-all group-hover:border-cyan-500/50 group-hover:bg-gray-800/60">
+                                <span class="text-cyan-400 text-sm font-bold tracking-wider uppercase">Aug 2023 — May 2026</span>
+                                <h4 class="text-white text-xl font-bold mt-1">Masters of Science</h4>
+                                <p class="text-gray-300 font-medium">Software Engineering</p>
+                                <p class="text-gray-500 text-sm italic mb-3">Rochester Institute of Technology (RIT)</p>
+                                <div class="max-h-0 overflow-hidden group-hover:max-h-40 transition-all duration-500 ease-in-out">
+                                    <p class="text-gray-400 text-sm pt-2 border-t border-gray-700">Specializing in Software Architecture, Model-Driven Development, Data Science & Analytics, NoSQL & Database Design, Collaborative Software Engineering, Software Quality Assurance, Cloud Software Systems.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="relative group">
+                            <div class="hidden md:block absolute -right-[43px] top-1.5 w-4 h-4 rounded-full bg-gray-700 border-4 border-gray-900 z-10"></div>
+                            <div class="bg-gray-800/40 p-6 rounded-2xl border border-gray-700/50 transition-all group-hover:border-cyan-500/50 group-hover:bg-gray-800/60">
+                                <span class="text-gray-500 text-sm font-bold tracking-wider uppercase">Aug 2017 — May 2021</span>
+                                <h4 class="text-white text-xl font-bold mt-1">Bachelors of Engineering</h4>
+                                <p class="text-gray-300 font-medium">Information Technology</p>
+                                <p class="text-gray-500 text-sm italic mb-3">Mumbai University</p>
+                                <div class="max-h-0 overflow-hidden group-hover:max-h-40 transition-all duration-500 ease-in-out">
+                                    <p class="text-gray-400 text-sm pt-2 border-t border-gray-700">Foundation in CS Fundamentals, Database Management, Big Data Analytics, Artificial Intelligence, Infrastructure Security, Cryptography, Distributed Systems (Cloud), Internet of Things (IoT), Automata Theory, Mobile Application Development.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Experience -->
+                    <div class="space-y-12">
+                        <div class="flex items-center gap-3 mb-8">
+                            <i data-lucide="briefcase" class="text-cyan-400 w-8 h-8"></i>
+                            <h3 class="text-2xl font-bold text-white">Experience</h3>
+                        </div>
+
+                        <!-- RIT OVPR -->
+                        <div class="relative group">
+                            <div class="hidden md:block absolute -left-[43px] top-1.5 w-4 h-4 rounded-full bg-cyan-500 border-4 border-gray-900 z-10"></div>
+                            <div class="bg-gray-800/40 p-6 rounded-2xl border border-gray-700/50 transition-all group-hover:border-cyan-500/50 group-hover:bg-gray-800/60">
+                                <span class="text-cyan-400 text-sm font-bold tracking-wider uppercase">Aug 2025 — Present</span>
+                                <h4 class="text-white text-lg font-bold mt-1">Software Engineer</h4>
+                                <p class="text-gray-300 font-medium text-xs italic mb-2">RIT, Office of Vice President for Research</p>
+                                <div class="max-h-0 overflow-hidden group-hover:max-h-64 transition-all duration-500 ease-in-out">
+                                    <ul class="text-gray-400 text-xs space-y-1 pt-2 border-t border-gray-700 list-disc pl-4">
+                                        <li>Built data pipelines processing 200M+ records to drive university-wide strategic analysis.</li>
+                                        <li>Developing an AI agent to parse complex sponsor constraints, reducing manual administrative review.</li>
+                                        <li>Engineered a Python-based SQL engine for flat-file analytics, eliminating database overhead for ad-hoc discovery.</li>
+                                        <li>Designed a centralized dashboard to track workloads across multiple departments.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Fresenius -->
+                        <div class="relative group">
+                            <div class="hidden md:block absolute -left-[43px] top-1.5 w-4 h-4 rounded-full bg-gray-700 border-4 border-gray-900 z-10"></div>
+                            <div class="bg-gray-800/40 p-6 rounded-2xl border border-gray-700/50 transition-all group-hover:border-cyan-500/50 group-hover:bg-gray-800/60">
+                                <span class="text-gray-500 text-sm font-bold tracking-wider uppercase">Jan 2025 — Jun 2025</span>
+                                <h4 class="text-white text-lg font-bold mt-1">Embedded SW Engineer (Co-op)</h4>
+                                <p class="text-gray-300 font-medium text-xs italic mb-2">Fresenius Medical Care</p>
+                                <div class="max-h-0 overflow-hidden group-hover:max-h-64 transition-all duration-500 ease-in-out">
+                                    <ul class="text-gray-400 text-xs space-y-1 pt-2 border-t border-gray-700 list-disc pl-4">
+                                        <li>Automated ~80% of functional testing for safety-critical medical devices using Python.</li>
+                                        <li>Designed a Linux provisioning solution to enforce least-privilege access during field servicing.</li>
+                                        <li>Upgraded device firmware with Boost C++ libraries, optimizing memory management and system stability.</li>
+                                        <li>Built reverse-engineering toolkits to document proprietary driver protocols and diagnose system-level failures.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Excellus -->
+                        <div class="relative group">
+                            <div class="hidden md:block absolute -left-[43px] top-1.5 w-4 h-4 rounded-full bg-gray-700 border-4 border-gray-900 z-10"></div>
+                            <div class="bg-gray-800/40 p-6 rounded-2xl border border-gray-700/50 transition-all group-hover:border-cyan-500/50 group-hover:bg-gray-800/60">
+                                <span class="text-gray-500 text-sm font-bold tracking-wider uppercase">Jun 2024 — Aug 2024</span>
+                                <h4 class="text-white text-lg font-bold mt-1">Software Engineer Intern</h4>
+                                <p class="text-gray-300 font-medium text-xs italic mb-2">Excellus BCBS</p>
+                                <div class="max-h-0 overflow-hidden group-hover:max-h-64 transition-all duration-500 ease-in-out">
+                                    <ul class="text-gray-400 text-xs space-y-1 pt-2 border-t border-gray-700 list-disc pl-4">
+                                        <li>Migrated CI/CD pipelines to Azure DevOps, standardizing access control and artifact management.</li>
+                                        <li>Co-architected the organization's first regression framework for healthcare claims, reducing manual QA effort.</li>
+                                        <li>Analyzed sprint metrics to identify bottlenecks and recommend Agile process improvements.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TCS -->
+                        <div class="relative group">
+                            <div class="hidden md:block absolute -left-[43px] top-1.5 w-4 h-4 rounded-full bg-gray-700 border-4 border-gray-900 z-10"></div>
+                            <div class="bg-gray-800/40 p-6 rounded-2xl border border-gray-700/50 transition-all group-hover:border-cyan-500/50 group-hover:bg-gray-800/60">
+                                <span class="text-gray-500 text-sm font-bold tracking-wider uppercase">Aug 2021 — Jul 2023</span>
+                                <h4 class="text-white text-lg font-bold mt-1">Software Engineer</h4>
+                                <p class="text-gray-300 font-medium text-xs italic mb-2">Tata Consultancy Services (TCS)</p>
+                                <div class="max-h-0 overflow-hidden group-hover:max-h-64 transition-all duration-500 ease-in-out">
+                                    <ul class="text-gray-400 text-xs space-y-1 pt-2 border-t border-gray-700 list-disc pl-4">
+                                        <li>Maintained 500+ automated regression tests for REST/SOAP APIs supporting a major Canadian bank.</li>
+                                        <li>Deployed services aligned with OpenAPI specifications, resolving complex integration issues in distributed teams.</li>
+                                        <li>Led cross-functional defect triage to prioritize and resolve production-impacting financial transaction issues.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TIFR -->
+                        <div class="relative group">
+                            <div class="hidden md:block absolute -left-[43px] top-1.5 w-4 h-4 rounded-full bg-gray-700 border-4 border-gray-900 z-10"></div>
+                            <div class="bg-gray-800/40 p-6 rounded-2xl border border-gray-700/50 transition-all group-hover:border-cyan-500/50 group-hover:bg-gray-800/60">
+                                <span class="text-gray-500 text-sm font-bold tracking-wider uppercase">Jan 2020 — May 2021</span>
+                                <h4 class="text-white text-lg font-bold mt-1">Software Engineer Intern</h4>
+                                <p class="text-gray-300 font-medium text-xs italic mb-2">TIFR Mumbai</p>
+                                <div class="max-h-0 overflow-hidden group-hover:max-h-64 transition-all duration-500 ease-in-out">
+                                    <ul class="text-gray-400 text-xs space-y-1 pt-2 border-t border-gray-700 list-disc pl-4">
+                                        <li>Led the full-stack deployment of a platform digitizing 5,000+ academic research projects.</li>
+                                        <li>Implemented RBAC and encryption to secure sensitive research data for 10,000+ users.</li>
+                                        <li>Enforced strict data access policies using network-level restrictions and Android security features.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mastek -->
+                        <div class="relative group">
+                            <div class="hidden md:block absolute -left-[43px] top-1.5 w-4 h-4 rounded-full bg-gray-700 border-4 border-gray-900 z-10"></div>
+                            <div class="bg-gray-800/40 p-6 rounded-2xl border border-gray-700/50 transition-all group-hover:border-cyan-500/50 group-hover:bg-gray-800/60">
+                                <span class="text-gray-500 text-sm font-bold tracking-wider uppercase">Oct 2019 — Feb 2020</span>
+                                <h4 class="text-white text-lg font-bold mt-1">Software Engineer Intern</h4>
+                                <p class="text-gray-300 font-medium text-xs italic mb-2">Mastek (Project Deepblue)</p>
+                                <div class="max-h-0 overflow-hidden group-hover:max-h-64 transition-all duration-500 ease-in-out">
+                                    <ul class="text-gray-400 text-xs space-y-1 pt-2 border-t border-gray-700 list-disc pl-4">
+                                        <li>Developed an Android application for remote visual acuity testing to aid off-site consultations.</li>
+                                        <li>Implemented decision-tree algorithms achieving ~75% diagnostic accuracy in clinical simulations.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="projects" class="py-24 border-t border-gray-800/50">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+                    <div>
+                        <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">Selected Systems</h2>
+                        <p class="text-gray-400 max-w-md">Exploring the architecture behind the projects I've built.</p>
+                    </div>
+                    <a href="https://github.com/uzairmukadam" target="_blank" class="text-cyan-400 hover:text-white flex items-center gap-2 font-semibold">
+                        View GitHub <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+                    </a>
+                </div>
+                <div id="project-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Dynamic Projects -->
+                </div>
+            </section>
+
+            <section id="blog" class="py-24 border-t border-gray-800/50">
+                <h2 class="text-3xl md:text-5xl font-bold text-white mb-12 text-center">Writings</h2>
+                <div id="blog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Dynamic Blogs -->
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="py-24 border-t border-gray-800/50">
+                <div class="max-w-4xl mx-auto">
+                    <h2 class="text-3xl md:text-5xl font-bold text-white mb-8 text-center">Get in <span class="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Touch</span></h2>
+                    <p class="text-gray-400 text-center mb-12 text-lg">
+                        I'm currently seeking Full-time Software Engineering roles for May 2026.
+                        Whether you have a question or just want to discuss backend architecture, my inbox is always open.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        <!-- Contact Info -->
+                        <div class="space-y-8">
+                            <div class="flex items-start gap-4">
+                                <div class="p-3 bg-gray-800 rounded-lg text-cyan-400">
+                                    <i data-lucide="linkedin" class="w-6 h-6"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold text-lg">LinkedIn</h4>
+                                    <a href="https://www.linkedin.com/in/uzair-mukadam99/" target="_blank" class="text-gray-400 hover:text-cyan-400 transition-colors">linkedin.com/in/uzair-mukadam99</a>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="p-3 bg-gray-800 rounded-lg text-cyan-400">
+                                    <i data-lucide="github" class="w-6 h-6"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold text-lg">GitHub</h4>
+                                    <a href="https://github.com/uzairmukadam" target="_blank" class="text-gray-400 hover:text-cyan-400 transition-colors">github.com/uzairmukadam</a>
+                                </div>
+                            </div>
+                        </div>
+                        <form action="https://formspree.io/f/mnjnllge" method="POST" class="space-y-4">
+                            <div>
+                                <input type="text" name="name" required placeholder="Name" class="w-full bg-gray-800/50 border border-gray-700 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500 transition-colors text-white placeholder-gray-500">
+                            </div>
+                            <div>
+                                <input type="email" name="email" required placeholder="Email" class="w-full bg-gray-800/50 border border-gray-700 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500 transition-colors text-white placeholder-gray-500">
+                            </div>
+                            <div>
+                                <textarea name="message" required placeholder="Message" rows="4" class="w-full bg-gray-800/50 border border-gray-700 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500 transition-colors text-white placeholder-gray-500"></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 rounded-xl transition-all shadow-lg shadow-cyan-500/20 active:scale-[0.98]">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="blog-post-detail" class="hidden container mx-auto px-6 py-20 min-h-screen">
+        <button onclick="showMainPage()" class="flex items-center gap-2 text-cyan-400 hover:text-white mb-12 transition-colors font-semibold">
+            <i data-lucide="chevron-left" class="w-5 h-5"></i> Back to Home
+        </button>
+        <article id="blog-post-content" class="markdown-content max-w-3xl mx-auto"></article>
+    </div>
+
+    <footer class="bg-gray-900 border-t border-gray-800 py-12">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+            <div>
+                <p class="text-white font-bold text-xl mb-1">Uzair Mukadam</p>
+                <p class="text-gray-500 text-sm">MS Software Engineering @ RIT '26</p>
+            </div>
+            <div class="text-gray-500 text-xs tracking-widest uppercase">
+                &copy; 2025-2026 All Rights Reserved
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/main.js" defer></script>
+</body>
+</html>
