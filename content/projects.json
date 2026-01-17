@@ -1,5 +1,12 @@
 [
     {
+        "title": "Linux-on-Android",
+        "description": "Linux on Android is a fully automated script that installs, configures, and manages full Linux distributions inside Termux using proot-distro, all without requiring root access.",
+        "imageUrl": null,
+        "githubUrl": "https://github.com/uzairmukadam/Linux-on-Android",
+        "liveUrl": null
+    },
+    {
         "title": "SheetQL",
         "description": "SheetQL is a powerful command-line tool that transforms your local data files (Excel, CSV, and Parquet) into a relational database, allowing you to run complex SQL queries without cumbersome manual steps. It's designed for data analysts, software engineers, and business professionals who need to quickly analyze spreadsheet data.",
         "imageUrl": null,
